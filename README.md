@@ -22,10 +22,3 @@ A web-based interactive puzzle game built using AngularJS, where players match h
 - **Version Control**: Git & GitHub
 
 ---
-
-## 🚀 Getting Started
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/pair-matching-game.git
-   cd pair-matching-game
