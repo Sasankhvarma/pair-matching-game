@@ -1,0 +1,251 @@
+/* === Reset & base === */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #3b3f6b, #2a2d4e);
+  color: #ddd;
+  text-align: center;
+  margin: 30px 0;
+  user-select: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 15px 50px;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 3rem;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+/* === Input & label === */
+label {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  font-weight: 600;
+  user-select: none;
+  color: #ccc;
+}
+
+input[type="number"] {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: none;
+  width: 100px;
+  font-size: 1.2rem;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 25px;
+  background: #222a44;
+  color: #ddd;
+}
+
+input[type="number"]:focus {
+  box-shadow: 0 0 12px 4px #5c63a7;
+}
+
+/* === Reset button near input === */
+.reset-button {
+  background: linear-gradient(135deg, #6e2f2f, #932626);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(147, 38, 38, 0.7);
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.reset-button:hover {
+  background: linear-gradient(135deg, #932626, #6e2f2f);
+  box-shadow: 0 8px 30px rgba(147, 38, 38, 0.9);
+  transform: scale(1.08);
+}
+
+/* === Game grid container === */
+.grid {
+  display: grid;
+  grid-gap: 18px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 100vw;
+}
+
+/* === Each cell === */
+.cell {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(145deg, #2f3247, #242742);
+  border-radius: 18px;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #a0a3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 12px #1a1c29,
+    -6px -6px 12px #3e4170;
+  transition: all 0.3s ease;
+  position: relative;
+  user-select: none;
+  transform-style: preserve-3d;
+  perspective: 600px;
+  transform-origin: center;
+}
+
+/* Hover effect on unrevealed cells */
+.cell:not(.matched):not(.revealed):hover {
+  box-shadow:
+    8px 8px 16px #404575,
+    -8px -8px 16px #515687;
+  transform: scale(1.1) rotateY(10deg) rotateX(5deg);
+  color: #ccd1ff;
+  background: linear-gradient(145deg, #353a66, #2b2f5c);
+}
+
+/* Revealed cells */
+.cell.revealed {
+  background: linear-gradient(145deg, #4c4e7a, #5e6192);
+  color: #e3e6ff;
+  box-shadow:
+    inset 4px 4px 8px #373a66,
+    inset -4px -4px 8px #7d80ff,
+    0 0 12px #7279ff;
+  animation: glowPulse 1.8s ease-in-out infinite alternate;
+  cursor: default;
+  transform: scale(1) rotateY(0);
+}
+
+/* Matched cells with stronger glow */
+.cell.matched {
+  background: linear-gradient(145deg, #2a6e39, #3ea04f);
+  color: #c0f9b3;
+  box-shadow:
+    0 0 6px 2px #38c03a,
+    0 0 15px 4px #44df40;
+  animation: glowPulseGreen 1.2s ease-in-out infinite alternate;
+  cursor: default;
+  transform: scale(1.05);
+}
+
+/* Wrong pair animation */
+.cell.wrong {
+  animation: flashRed 0.7s ease forwards;
+}
+
+/* Animations */
+@keyframes glowPulse {
+  0% {
+    box-shadow:
+      inset 4px 4px 8px #373a66,
+      inset -4px -4px 8px #7d80ff,
+      0 0 8px #7279ff;
+  }
+  100% {
+    box-shadow:
+      inset 6px 6px 14px #5458b0,
+      inset -6px -6px 14px #a0a4ff,
+      0 0 24px #9ea7ff;
+  }
+}
+
+@keyframes glowPulseGreen {
+  0% {
+    box-shadow:
+      0 0 10px 2px #38c03a,
+      0 0 20px 4px #44df40;
+  }
+  100% {
+    box-shadow:
+      0 0 18px 5px #1fbf25,
+      0 0 36px 8px #23c62a;
+  }
+}
+
+@keyframes flashRed {
+  0% {
+    background: #6a2424;
+    color: #fca5a5;
+    box-shadow: 0 0 15px 5px #ff3b3b;
+  }
+  50% {
+    background: #7d2a2a;
+    color: #f87171;
+    box-shadow: 0 0 25px 10px #ff1a1a;
+  }
+  100% {
+    background: linear-gradient(145deg, #2f3247, #242742);
+    color: #a0a3c7;
+    box-shadow:
+      6px 6px 12px #1a1c29,
+      -6px -6px 12px #3e4170;
+  }
+}
+
+/* Message styling */
+.message {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 18px;
+  min-height: 32px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+  user-select: none;
+  color: #ddd;
+}
+
+/* Restart button styling with animation */
+button.restart {
+  margin-top: 35px;
+  padding: 14px 40px;
+  background: linear-gradient(270deg, #4a4e82, #2f3368, #5e6192, #2f3368);
+  background-size: 800% 800%;
+  border: none;
+  border-radius: 35px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #bbb;
+  cursor: pointer;
+  box-shadow:
+    0 6px 20px rgba(47, 51, 104, 0.7),
+    inset 0 0 8px rgba(255, 255, 255, 0.2);
+  transition: all 0.35s ease;
+  user-select: none;
+  animation: gradientShift 8s ease infinite;
+}
+
+button.restart:hover {
+  color: #fff;
+  box-shadow:
+    0 10px 30px rgba(83, 89, 153, 0.9),
+    inset 0 0 14px rgba(255, 255, 255, 0.35);
+  transform: scale(1.12);
+}
+
+/* Gradient background shift for restart button */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

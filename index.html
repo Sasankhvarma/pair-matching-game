@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="PairGameApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>Consecutive Pair Matching Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body ng-controller="GameController as game">
+
+    <h1>Consecutive Pair Matching Game</h1>
+
+    <label for="gridSize">Select grid size (even number, e.g. 2,4,6): </label>
+    <br>
+    <input 
+      id="gridSize" 
+      type="number" 
+      ng-model="game.size" 
+      min="2" 
+      step="2"
+      ng-change="game.resetGame()" />
+    
+    <div class="grid" ng-style="{'grid-template-columns': 'repeat(' + game.size + ', 90px)'}">
+        <div 
+            class="cell" 
+            ng-repeat="cell in game.board track by $index"
+            ng-click="game.selectCell($index)"
+            ng-class="{'matched': cell.matched, 'revealed': cell.revealed}">
+            {{ cell.revealed || cell.matched ? cell.value : '?' }}
+        </div>
+    </div>
+
+    <p class="message">{{ game.message }}</p>
+
+    <button class="restart" ng-click="game.resetGame()">Restart Game</button>
+
+    <script src="app/app.module.js"></script>
+    <script src="app/app.controller.js"></script>
+
+</body>
+</html>
